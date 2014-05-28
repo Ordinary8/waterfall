@@ -13,7 +13,7 @@
 //#import "UIImage+UIImageExt.h"
 #import "SDImageCache.h"
 //#import "UIDevice+Resolutions.h"
-#import "UserInf+Util.h"
+#import "BrandInf+Util.h"
 
 #import "FileHandle.h"
 

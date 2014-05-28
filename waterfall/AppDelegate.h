@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ASIDownloadCache.h"
 
-@class UserInf;
+@class BrandInf;
 @class ProductInf;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
@@ -20,7 +20,7 @@
 
 @property (strong, nonatomic) UINavigationController *naviController;
 //将用户信息保存到内存---不需要缓存
-@property (strong, nonatomic) UserInf *userInf;
+@property (strong, nonatomic) BrandInf *userInf;
 //用于展示屏幕保护的定时器
 @property (strong, nonatomic) NSTimer *screenSaverTimer;
 //这样的话需要遍历添加

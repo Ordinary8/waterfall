@@ -29,7 +29,7 @@
 //快递接口
 + (NSString *) callSyncExpressWithCom:(NSString *)com nu:(NSString *)nu;
 
-
++ (NSString *) callSyncUrl:(NSString *) urlStr;
 
 //通过方法名调用接口
 + (NSString *) callSyncWithMethodName:(NSString *)methodName paramDict:(NSDictionary *) paramDict;

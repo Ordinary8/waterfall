@@ -6,12 +6,18 @@
 //  Copyright (c) 2014年 harry.xie. All rights reserved.
 //
 
-#import "UserInf.h"
+#import "BrandInf.h"
 
-@implementation UserInf
+@implementation BrandInf
 
 @synthesize uid;
+
 @synthesize usname;
+@synthesize photo;
+@synthesize company;
+@synthesize addr;
+@synthesize phone;
+
 @synthesize stopdate;
 @synthesize dspan;
 @synthesize istrade;
@@ -20,6 +26,11 @@
 @synthesize ispicture;
 @synthesize isvideo;
 @synthesize isgrdset;
+
+@synthesize userStatus;
+
 @synthesize msg;
+
+@synthesize isBind;
 
 @end

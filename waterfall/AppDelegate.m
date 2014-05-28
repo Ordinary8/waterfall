@@ -8,9 +8,9 @@
 
 #import "AppDelegate.h"
 
-#import "CommunityVC.h"
+#import "MallAct.h"
 #import "FileHandle.h"
-#import "UserInf+Util.h"
+#import "BrandInf+Util.h"
 
 //最近因为公司要使用瀑布流的效果,老板一定要这个效果,在强大的压力下解决的,希望能帮助更多地开发者
 //能为开源社区贡献自己的一份努力是我的荣幸
@@ -41,9 +41,9 @@
         application.applicationIconBadgeNumber=0;
 		NSLog(@"Recieved Notification %@",localNotif);
 	}
-    userInf=[[UserInf alloc] init];
+    userInf=[[BrandInf alloc] init];
     userInf.uid=[Prefs getDefaultId];
-    CommunityVC * loginVC=[[CommunityVC alloc] init];
+    MallAct * loginVC=[[MallAct alloc] init];
     self.naviController=[[UINavigationController alloc] initWithRootViewController:loginVC];
     self.naviController.navigationBarHidden = YES;
     ASIDownloadCache *cache = [[ASIDownloadCache alloc] init];

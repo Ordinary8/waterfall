@@ -114,6 +114,22 @@
     return nil;
 }
 
+//webservice url通用接口
++ (NSString *) callSyncUrl:(NSString *) urlStr
+{
+    NSURL * url=[NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    ASIHTTPRequest * req=[ASIHTTPRequest requestWithURL:url];
+    [req setRequestMethod:@"GET"];
+    [req startSynchronous];
+    NSError * error=[req error];
+    if(!error){//如果没有错误
+        return [req responseString];
+    }else{
+        //NSLog(@"接口错误:%@",[error localizedDescription]);
+    }
+    return [req responseString];
+}
+
 //检测更新 返回字典
 + (NSMutableDictionary *) checkUpdate:(NSString *) urlStr
 {
