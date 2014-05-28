@@ -72,7 +72,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.tempProductInfs=[NSMutableArray array];
     columnWidth=((self.view.bounds.size.width-COLLECT_OFFSETX)) / COLUMN_COUNT;
     productCollection=[self layoutCollectionView:COLUMN_SPACE itemWidth:columnWidth];
     [self.view addSubview:productCollection];
@@ -144,13 +144,7 @@
     }
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableDictionary * dictP=[[NSMutableDictionary alloc] initWithCapacity:2];
-        [dictP setObject:[NSString stringWithFormat:@"0"] forKey:@"m"];
-        [dictP setObject:[NSString stringWithFormat:@"0"] forKey:@"bid"];
-        [dictP setObject:[NSString stringWithFormat:@"%d",PSIZE] forKey:@"psize"];
-        [dictP setObject:[NSString stringWithFormat:@"%d",pindex] forKey:@"pindex"];
-        NSString * url=[Prefs getServicePad:@"GetCatPrdsInfo" dict:dictP];
-        NSString* result=[NetHttpRequest callSyncUrl:url];
+        NSString* result=@"这里将接口替换成了模拟数据,开发者可根据具体需求变更!图片都来源于我的空间";
 
         dispatch_sync(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -160,9 +154,64 @@
             if ([NSString isNull:result]) {
                 [self.view makeToast:@"请求失败!"];
             }else{
-                NSDictionary * dict=[result objectFromJSONString];
-                pgcount=[[dict objectForKey:@"pgcount"] intValue];
-                self.tempProductInfs=[ProductInf initFromArrForMall:[dict objectForKey:@"products"]];
+                pgcount=120;
+                for (int i=0;i<PSIZE; i++) {
+                    ProductInf * inf=[[ProductInf alloc] init];
+                    inf.brdimg=@"http://b30.photo.store.qq.com/psu?/10fc7dde-f511-46ec-a80e-d3ef9ab4a38d/3OCFbCvWy2W1gN2a6yFawnus7OzMIYxZLfadrX3qRBA!/m/YYTq8BEGBAAAYtBk7xEOAQAA&bo=8ABAAQAAAAABAJY!&rf=photolist";
+                    inf.brdname=@"品牌名";
+                    inf.productTitle=@"主题";
+                    switch (i%PSIZE) {//这里为了模拟瀑布流效果需要不同高度的图片
+                        case 0:
+                        {
+                            inf.prdPic=@"http://b30.photo.store.qq.com/psu?/10fc7dde-f511-46ec-a80e-d3ef9ab4a38d/j1ZIwyrsS5PnFsLRyqIZBiuZ9fCdyUKn2gOM0o0qAzk!/b/YUVs8hG.AgAAYqQ85hEgAAAA&bo=8AA*AQAAAAABAOk!";
+                        }
+                            break;
+                        case 1:
+                        {
+                            inf.prdPic=@"http://b79.photo.store.qq.com/psu?/V12M0lWm261Whn/nLxD1rRWvGdv0jfSwu6GRUEkxj8dyLIk80*IIoEA0Fo!/b/YSsYHi97jwAAYteZHy.qJgAA&bo=ngL2AQAAAAABAEw!&rf=viewer_4";
+                        }
+                            break;
+                        case 2:
+                        {
+                            inf.prdPic=@"http://b81.photo.store.qq.com/psu?/V12M0lWm261Whn/Kv9rdFTUM7ZhLAXCU5MLK1O0ennhS3fpBeqDMGh3Ly8!/b/YQEySTDhbwAAYnE1STCdXgAA&bo=owHwAQAAAAABAHQ!&rf=viewer_4";
+                        }
+                            break;
+                        case 3:
+                        {
+                            inf.prdPic=@"http://b81.photo.store.qq.com/psu?/V12M0lWm261Whn/Pey0NhNoj8vBAtisjWFYDNZEJa1.SyCnqhvmAagBxe8!/b/YeZHTzCMKwAAYm*nVjAWKwAA&bo=ngL2AQAAAAABAEw!&rf=viewer_4";
+                        }
+                            break;
+                        case 4:
+                        {
+                            inf.prdPic=@"http://b258.photo.store.qq.com/psb?/V12M0lWm3QcDvs/338I6ln4W2wkA2Y29Br3Jr6GF.hwtuSpazvp9c9PQv8!/b/dATYypnnIAAA&bo=gAJVAwAAAAABAPM!&w=176&h=235&rf=iphoto";
+                        }
+                            break;
+                        case 5:
+                        {
+                            inf.prdPic=@"http://b257.photo.store.qq.com/psb?/V12M0lWm3QcDvs/mcQK*18DqqLtIjgc1Y3Ax.H5E5De0y2QplNy*zL82bs!/b/dPZFNZkKGwAA&bo=gAJVAwAAAAABAPM!&w=138&h=184&rf=iphoto";
+                        }
+                            break;
+                        case 6:
+                        {
+                            inf.prdPic=@"http://b251.photo.store.qq.com/psb?/V12M0lWm3QcDvs/pZX6CZB12bbgOzFF7MjVe6pwrhrzlxub.2B2kTnUfBQ!/b/dLHUpJWwNAAA&bo=IANYAgAAAAABAF4!&w=279&h=209&rf=iphoto";
+                        }
+                            break;
+                        case 7:
+                        {
+                            inf.prdPic=@"http://b251.photo.store.qq.com/psb?/V12M0lWm3QcDvs/*P*hcK1ta5AYDhh4kyHA0hxV1m3xh6K*OP*lxrqE3E0!/b/dBe3npVUHQAA&bo=WAIgAwAAAAABAF4!&w=158&h=211&rf=iphoto";
+                        }
+                            break;
+                        case 8:
+                        {
+                            inf.prdPic=@"http://b253.photo.store.qq.com/psb?/V12M0lWm3QcDvs/KOUcRKfnZengwz3FESIfgUuvux9111qpsQCG4thwjfE!/b/dPN915bREAAA&bo=WAIgAwAAAAABAF4!&w=165&h=221&rf=iphoto";
+                        }
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                    [self.tempProductInfs addObject:inf];
+                }
                 if (self.tempProductInfs.count>0) {
                     [self.dynamicProductInfs addObjectsFromArray:self.tempProductInfs];
                     [productCollection reloadData];
@@ -171,6 +220,7 @@
             }
         });
     });
+
 }
 
 
@@ -181,56 +231,6 @@
         int index=dynamicProductInfs.count-self.tempProductInfs.count;
         for (int i=index; i<dynamicProductInfs.count; i++) {
             ProductInf * inf=[dynamicProductInfs objectAtIndex:i];
-            switch (i%PSIZE) {//这里为了模拟瀑布流效果需要不同高度的图片
-                case 0:
-                {
-                    inf.prdPic=@"http://b30.photo.store.qq.com/psu?/10fc7dde-f511-46ec-a80e-d3ef9ab4a38d/j1ZIwyrsS5PnFsLRyqIZBiuZ9fCdyUKn2gOM0o0qAzk!/b/YUVs8hG.AgAAYqQ85hEgAAAA&bo=8AA*AQAAAAABAOk!";
-                }
-                    break;
-                case 1:
-                {
-                    inf.prdPic=@"http://b79.photo.store.qq.com/psu?/V12M0lWm261Whn/nLxD1rRWvGdv0jfSwu6GRUEkxj8dyLIk80*IIoEA0Fo!/b/YSsYHi97jwAAYteZHy.qJgAA&bo=ngL2AQAAAAABAEw!&rf=viewer_4";
-                }
-                    break;
-                case 2:
-                {
-                    inf.prdPic=@"http://b81.photo.store.qq.com/psu?/V12M0lWm261Whn/Kv9rdFTUM7ZhLAXCU5MLK1O0ennhS3fpBeqDMGh3Ly8!/b/YQEySTDhbwAAYnE1STCdXgAA&bo=owHwAQAAAAABAHQ!&rf=viewer_4";
-                }
-                    break;
-                case 3:
-                {
-                    inf.prdPic=@"http://b81.photo.store.qq.com/psu?/V12M0lWm261Whn/Pey0NhNoj8vBAtisjWFYDNZEJa1.SyCnqhvmAagBxe8!/b/YeZHTzCMKwAAYm*nVjAWKwAA&bo=ngL2AQAAAAABAEw!&rf=viewer_4";
-                }
-                    break;
-                case 4:
-                {
-                    inf.prdPic=@"http://b258.photo.store.qq.com/psb?/V12M0lWm3QcDvs/338I6ln4W2wkA2Y29Br3Jr6GF.hwtuSpazvp9c9PQv8!/b/dATYypnnIAAA&bo=gAJVAwAAAAABAPM!&w=176&h=235&rf=iphoto";
-                }
-                    break;
-                case 5:
-                {
-                    inf.prdPic=@"http://b257.photo.store.qq.com/psb?/V12M0lWm3QcDvs/mcQK*18DqqLtIjgc1Y3Ax.H5E5De0y2QplNy*zL82bs!/b/dPZFNZkKGwAA&bo=gAJVAwAAAAABAPM!&w=138&h=184&rf=iphoto";
-                }
-                    break;
-                case 6:
-                {
-                    inf.prdPic=@"http://b251.photo.store.qq.com/psb?/V12M0lWm3QcDvs/pZX6CZB12bbgOzFF7MjVe6pwrhrzlxub.2B2kTnUfBQ!/b/dLHUpJWwNAAA&bo=IANYAgAAAAABAF4!&w=279&h=209&rf=iphoto";
-                }
-                    break;
-                case 7:
-                {
-                    inf.prdPic=@"http://b251.photo.store.qq.com/psb?/V12M0lWm3QcDvs/*P*hcK1ta5AYDhh4kyHA0hxV1m3xh6K*OP*lxrqE3E0!/b/dBe3npVUHQAA&bo=WAIgAwAAAAABAF4!&w=158&h=211&rf=iphoto";
-                }
-                    break;
-                case 8:
-                {
-                    inf.prdPic=@"http://b253.photo.store.qq.com/psb?/V12M0lWm3QcDvs/KOUcRKfnZengwz3FESIfgUuvux9111qpsQCG4thwjfE!/b/dPN915bREAAA&bo=WAIgAwAAAAABAF4!&w=165&h=221&rf=iphoto";
-                }
-                    break;
-                    
-                default:
-                    break;
-            }
             
             NSString *dir=[FileHandle getUnityCacheDirectory];
             NSString *saveFile=[inf.prdPic md5HexDigest];
