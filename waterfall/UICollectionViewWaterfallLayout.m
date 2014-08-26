@@ -47,8 +47,9 @@
 #pragma mark - Init
 - (void)commonInit
 {
-    _columnCount = 2;
-    _itemWidth = 140.0f;
+    _columnCount = 2;//保证最少两列
+    _itemWidth = 140.0f;//最少宽度为140
+    _minimumLineSpacing=0;
     _sectionInset = UIEdgeInsetsZero;
 }
 
@@ -71,7 +72,7 @@
     _itemAttributes = nil;
 }
 
-#pragma mark - Methods to Override  准备布局
+#pragma mark - Methods to Override 绘制之前的计算位置
 - (void)prepareLayout
 {
     [super prepareLayout];
@@ -96,17 +97,18 @@
                                   heightForItemAtIndexPath:indexPath];
         NSUInteger columnIndex = [self shortestColumnIndex];
         CGFloat xOffset = _sectionInset.left + (_itemWidth + _interitemSpacing) * columnIndex;
+        //计算y方向上的偏移量
         CGFloat yOffset = [(_columnHeights[columnIndex]) floatValue];
-
+        //NSLog(@"yOffset==%f",yOffset);
         UICollectionViewLayoutAttributes *attributes =
         [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
         attributes.frame = CGRectMake(xOffset, yOffset, self.itemWidth, itemHeight);
         [_itemAttributes addObject:attributes];
-        _columnHeights[columnIndex] = @(yOffset + itemHeight + _interitemSpacing);
+        _columnHeights[columnIndex] = @(yOffset + itemHeight + _minimumLineSpacing);
     }
 }
 
-//得到内容尺寸大小---该视图是CollectionView的单元行视图
+//得到内容尺寸大小---该视图是CollectionView的单元格视图大小
 - (CGSize)collectionViewContentSize
 {
     if (self.itemCount == 0) {
@@ -133,7 +135,7 @@
     }]];
 }
 
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
+- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)tmpBounds
 {
     return NO;
 }

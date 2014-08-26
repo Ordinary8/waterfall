@@ -19,6 +19,8 @@
 @property (nonatomic, assign) CGFloat itemWidth; // Width for every column
 //设置单元外边距
 @property (nonatomic, assign) UIEdgeInsets sectionInset; // The margins used to lay out content in a section
+//单元格的行距
+@property (nonatomic,assign) CGFloat minimumLineSpacing;
 
 @end
 
