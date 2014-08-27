@@ -34,7 +34,7 @@
 }
 
 @property (nonatomic,assign) BOOL flag;
-@property (nonatomic,retain) UICollectionView *productCollect;
+@property (nonatomic,retain) IBOutlet UICollectionView *productCollect;
 @property (nonatomic,retain) NSMutableArray * dynamicProductInfs;//动态商城数据---随加载动态变化
 @property (nonatomic,retain) NSMutableArray * tempProductInfs;//临时请求数据
 
@@ -66,37 +66,18 @@
 {
     [super viewDidLoad];
     self.dynamicProductInfs=[NSMutableArray array];
-    productCollect=[self layoutCollectionView:20 tag:1];
-    [self.view addSubview:productCollect];
-    [self setupRefresh];
     
-}
-
-//手动创建集合视图
--(UICollectionView*) layoutCollectionView:(int) space tag:(int)tag
-{
-    //先设置宽度
-    UICollectionViewWaterfallLayout *layout = [[UICollectionViewWaterfallLayout alloc] init];
+    [productCollect registerClass:[ProductShopCell class] forCellWithReuseIdentifier:NSStringFromClass([ProductShopCell class])];
+    UICollectionViewWaterfallLayout *layout=(UICollectionViewWaterfallLayout *)productCollect.collectionViewLayout;
     //设置内边距
-    layout.sectionInset = UIEdgeInsetsMake(space,space,space,space);
+    layout.sectionInset = UIEdgeInsetsMake(20,20,20,20);
     layout.columnCount=FALLCOLUMN_COUNT;
     layout.minimumLineSpacing=20;
     layout.itemWidth=COLUMN_WIDTH;
     layout.delegate = self;
     
-    UICollectionView* collect = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:layout];
-    collect.frame=CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+    [self setupRefresh];
     
-    collect.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    collect.dataSource = self;
-    collect.delegate = self;
-    collect.tag=1;
-    
-    collect.backgroundColor = [UIColor clearColor];
-    collect.alwaysBounceVertical=YES;
-    
-    [collect registerClass:[ProductShopCell class] forCellWithReuseIdentifier:NSStringFromClass([ProductShopCell class])];
-    return collect;
 }
 
 - (void)setupRefresh
@@ -273,7 +254,7 @@
     NSString *saveFile=[inf.prdPic md5HexDigest];
     UIImage * image=[UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%@",dir,saveFile]];
     [cell.productPic setImage:image];
-    
+    NSLog(@"索引位置--->%d",indexPath.row);
     return cell;
 }
 
